@@ -1,0 +1,51 @@
+%
+% These examples are based on the package documentation:
+% http://www.ctan.org/tex-archive/macros/latex/contrib/minted
+%
+\documentclass{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage{minted}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\begin{document}
+
+\title{CSCI-GA 3205 Applied Cryptography & Network Security
+Assignment 1}
+\author{Yihao Zhong Larry}
+
+
+\section{Question 1}
+ Assume an attacker knows that a user’s password is either abcd or bedg. Say the user encrypts his password using the shift cipher, and the attacker sees the resulting ciphertext. Show how the attacker can determine the user’s password, or explain why this is not possible.
+
+\subsection{Answer}
+In general, the attackers are able to determine the user’s password. By observing the the password ‘abcd’ and ‘bedg’, we can tell that ‘abcd’ consists of four consecutive letters and ‘bedg’ does not. The shift cipher shifts every letter by the same distance so if the ciphertext is also four consecutive letters, then the password is ‘abcd’. Otherwise, it is ‘bedg’.
+
+\section{Question 2}
+The shift, substitution, and Vigenere ciphers can also be defined over the 128-character ASCII alphabet (rather than the 26-character English alphabet). Provide a formal definition of each of these schemes in this case.
+
+
+
+\subsection{Answer}
+Shift \\
+$Gen$: outputs a uniform key $k \in \{1,... , 127\}$. $Enc$: takes a key $k$ and a plaintext and shifts each letter of the plaintext forward $k$ positions, that is, $Enc_k(m_1...m_l) = c_1...c_l$, where $c_i = [(m_i + k) mod 128]$, $m_i \in \{1,... , 127\}$. Decryption of a ciphertext $c = c_1...c_l$ using key $k$ is given by $Dec_k( c_1...c_l) = m_1...m_l$, where $m_i = [(c_i - k) mod 128]$.
+\\
+Substitution \\
+The key $k$ is a one-to-one mapping between the plaintext character set and the ciphertext character set, such that for each plaintext character $p$, there is a unique ciphertext character $c = f(p, k)$. The key space consists of all bijections, or permutations, of the ASCII. One possible $Gen$: choose a permutation $f$ out of $\{1, ..., 127\}$. $Enc$:  message $m = m_1, ..., m_l$ where $m_i \in \{1,... , 127\}$, apply key $f$, and get $Enc_k(m_1...m_l) = c_1...c_l$ where $c_i = f(m_i)$, (the mapping). Decryption of a ciphertext $c = c_1...c_l$ using key $f$ is given by $Dec_k( c_1...c_l) = m_1...m_l$, where $m_i = f^{-1}(c_i)$.
+\\
+Vigenere\\
+$Gen$: Choose a random length of the key $k$ as $l$. For each character $k_i$, $k_i \in \{1,... , 127\}$, where $i \in [1, l]$. $Enc$: $Enc_k(m_1...m_l) = c_1...c_l$, where $c_i = [(m_i + k_{i mod l}) mod 128]$, $m_i \in \{1,... , 127\}$. Decryption of a ciphertext $c = c_1...c_l$ using key $k$ is given by $Dec_k( c_1...c_l) = m_1...m_l$, where $m_i = [(c_i - k_{i mod l}) mod 128]$.
+
+
+\section{Question 3}
+Encrypt the message “cryptography” using the Vigenere cipher with the key “google” (repeated).
+
+
+\subsection{Answer}
+The key is 'google' and in the encoding it becomes 'googlegoogle' and the ciphertext is 'ifmvesmfovsc'.
+
+\end{document}
